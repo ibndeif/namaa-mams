@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Enum\ArticleStatus;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class ArticleStatusTest extends TestCase
 {
@@ -14,7 +14,7 @@ class ArticleStatusTest extends TestCase
     {
         $cases = ArticleStatus::cases();
         foreach ($cases as $case) {
-            $this->assertMatchesRegularExpression('/^[A-Z][a-zA-Z]*$/', $case->name);
+            $this->assertStringInPascalCase($case->name);
         }
     }
 }

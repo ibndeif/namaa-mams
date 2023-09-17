@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Enum\UserRole;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class UserRoleTest extends TestCase
 {
@@ -14,7 +14,7 @@ class UserRoleTest extends TestCase
     {
         $cases = UserRole::cases();
         foreach ($cases as $case) {
-            $this->assertMatchesRegularExpression('/^[A-Z][a-zA-Z]*$/', $case->name);
+            $this->assertStringInPascalCase($case->name);
         }
     }
 }

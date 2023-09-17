@@ -26,4 +26,9 @@ class ArticleController extends Controller
 
         return view('articles.index')->with('articles', $articles);
     }
+
+    public function create()
+    {
+        return view('articles.create');
+    }
 }

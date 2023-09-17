@@ -22,7 +22,8 @@ class ArticleController extends Controller
             $query->matchByStatus($request->status);
         }
 
-        $articles = $query->get();
+        $articles = $query->paginate(15);
+
         return view('articles.index')->with('articles', $articles);
     }
 }

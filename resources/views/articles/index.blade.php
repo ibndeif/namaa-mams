@@ -51,6 +51,11 @@
 
             </tbody>
         </table>
+
+        <div class="mt-6">
+            {{ $articles->withQueryString()->links() }}
+        </div>
+
         @endif
     </x-section>
 </x-app-layout>

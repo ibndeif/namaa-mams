@@ -43,10 +43,7 @@ class Article extends Model
         if (!$term) {
             return;
         }
-        $query->where(function (Builder $q) use ($term) {
-            $q
-                ->where('title', 'LIKE', '%' . $term . '%')
-                ->orWhere('body', 'LIKE', '%' . $term . '%');
-        });
+
+        $query->whereFullText(['title', 'body'], $term);
     }
 }

@@ -29,6 +29,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Image</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">title</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Author</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Created At</th>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Action</th>
@@ -39,6 +40,7 @@
                 <tr class="hover:bg-gray-100 dark:hover:bg-gray-500">
                     <td class="px-6 py-4 whitespace-nowrap text-sm"><img src="{{ $article->image }}" class="object-fill" alt=""></td>
                     <td class=" px-6 py-4 whitespace-nowrap text-sm">{{ Str::limit($article->title, 50) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->author->name }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->status }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->created_at }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

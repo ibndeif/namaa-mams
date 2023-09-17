@@ -10,7 +10,9 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        $query = Article::latest();
+        $query = Article::latest()->with('author', function ($query) {
+            $query->select('id', 'name');
+        });
 
         if (isset($request->term)) {
             $query->matchByTerm($request->term);

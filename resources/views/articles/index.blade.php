@@ -45,9 +45,9 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->author->name }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->status }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->created_at }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a class="text-blue-500 hover:text-blue-700" href="{{route('articles.edit', $article->id)}}">Edit</a>
-                        <a class="text-blue-500 hover:text-blue-700" href="#">Delete</a>
+                    <td class="px-6 py-4 flex whitespace-nowrap space-x-1 text-sm font-medium">
+                        <x-action-link href="{{route('articles.edit', $article->id)}}">Edit</x-action-link>
+                        <x-action-link type="form" href="{{route('articles.destroy', $article->id)}}" confirm="Are you sure to delete {{$article->title}}">Delete</x-action-link>
                     </td>
                 </tr>
                 @endforeach

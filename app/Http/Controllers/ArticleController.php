@@ -76,4 +76,10 @@ class ArticleController extends Controller
 
         return redirect(route('articles.index'))->with('success', 'Article has been updated.');
     }
+
+    public function destroy(Article $article)
+    {
+        $article->delete();
+        return redirect(route('articles.index'))->with('success', 'Article has been deleted.');
+    }
 }

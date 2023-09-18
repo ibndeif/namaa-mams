@@ -8,7 +8,7 @@
 
 
     <x-section>
-        <form method="POST" action="{{ route('articles.store') }}">
+        <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">
             @csrf
 
             <h2 class="text-xl mb-4">{{ __('Create Article') }}</h2>
@@ -16,20 +16,22 @@
             <!-- Title -->
             <div>
                 <x-input-label for="title" :value="__('Title')" />
-                <x-text-input id="title" x-model="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" autofocus autocomplete="title" />
-                <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" autofocus autocomplete="title" />
+                <x-input-error :messages="$errors->first('title')" class="mt-2" />
             </div>
 
+            <!-- Body -->
             <div class="mt-4">
                 <x-input-label for="body" :value="__('Body')" />
-                <x-text-area id="body" x-model="title" class="block mt-1 w-full" name="body" :value="old('body')" />
-                <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                <x-text-area id="body" class="block mt-1 w-full" name="body" :value="old('body')" />
+                <x-input-error :messages="$errors->first('body')" class="mt-2" />
             </div>
 
+            <!-- Image -->
             <div class="mt-4">
                 <x-input-label for="image" :value="__('Image')" />
-                <x-text-input type="file" id="image" x-model="title" class="block mt-1 w-full" name="image" :value="old('image')" />
-                <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                <x-text-input type="file" id="image" class="block mt-1 w-full" name="image" />
+                <x-input-error :messages="$errors->first('image')" class="mt-2" />
             </div>
 
 

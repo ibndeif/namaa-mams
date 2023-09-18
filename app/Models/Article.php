@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
-
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * Todo
@@ -16,6 +18,15 @@ use Illuminate\Database\Eloquent\Builder;
 class Article extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'body', 'image', 'slug'];
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Str::startsWith($value, 'http') ? $value : Storage::url($value),
+        );
+    }
 
     public function author(): BelongsTo
     {

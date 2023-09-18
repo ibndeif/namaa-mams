@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enum\ArticleStatus;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;

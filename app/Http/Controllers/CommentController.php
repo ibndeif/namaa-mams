@@ -10,6 +10,8 @@ class CommentController extends Controller
 {
     public function store(Request $request, Article $article)
     {
+        $this->authorize('create', Comment::class);
+
         $data = $request->validate([
             'body' => 'required'
         ]);
@@ -24,6 +26,7 @@ class CommentController extends Controller
 
     public function destroy($_, Comment $comment)
     {
+        $this->authorize('delete', $comment);
         $comment->delete();
         return back()->with('success', 'Comment has been deleted');
     }

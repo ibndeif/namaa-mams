@@ -10,6 +10,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['body', 'author_id'];
+
     public function article(): BelongsTo
     {
         return $this->belongsTo(Article::class);

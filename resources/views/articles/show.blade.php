@@ -27,13 +27,14 @@
 
             <!-- comments -->
             <section class="mt-10 space-y-6">
-                <form action="POST" action="#" class="border border-gray-200 p-6 rounded-xl">
+                <form method="POST" action="{{route('comments.store', $article->id)}}" class="border border-gray-200 p-6 rounded-xl">
                     @csrf()
                     <header>
                         <h2 class="font-bold">Leave a comment?</h2>
                     </header>
                     <div class="mt-5">
-                        <x-text-area class="w-full" rows="5" placeholder="Place your comment here" />
+                        <x-text-area name="body" class="w-full" rows="5" placeholder="Place your comment here" />
+                        <x-input-error :messages="$errors->first('body')" class="mt-2" />
                     </div>
                     <div class="flex justify-end">
                         <x-primary-button>Post Comment</x-primary-button>

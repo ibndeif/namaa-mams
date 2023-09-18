@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ArticleController extends Controller
@@ -38,7 +39,7 @@ class ArticleController extends Controller
         $data = $request->validate([
             'title' => 'required|max:255|unique:articles',
             'body' => 'required',
-            'image' => 'required|image'
+            'image' => 'required|image|max:2048'
         ]);
 
         $data['image'] = $request->file('image')->store('articles');
@@ -47,5 +48,32 @@ class ArticleController extends Controller
         $request->user()->articles()->create($data);
 
         return redirect(route('articles.index'))->with('success', 'Article has been created.');
+    }
+
+    public function edit(Article $article)
+    {
+        return view('articles.edit')->with('article', $article);
+    }
+
+    public function update(Request $request, Article $article)
+    {
+        $data = $request->validate([
+            'title' => 'required|max:255|unique:articles,title,' . $article->id,
+            'body' => 'required',
+            'image' => 'image|max:2048'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('articles');
+            if (!empty($article->image) && Storage::fileExists($article->getRawOriginal('image'))) {
+                Storage::delete($article->getRawOriginal('image'));
+            }
+        }
+
+        $data['slug'] = Str::slug($data['title']);
+
+        $article->update($data);
+
+        return redirect(route('articles.index'))->with('success', 'Article has been updated.');
     }
 }

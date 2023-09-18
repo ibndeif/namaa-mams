@@ -68,4 +68,13 @@ class Article extends Model
 
         $query->whereFullText(['title', 'body'], $term);
     }
+
+
+    /**
+     * Query scope to get published posts only
+     */
+    public function scopePublished(Builder $query): void
+    {
+        $query->where('status', ArticleStatus::Published->value);
+    }
 }

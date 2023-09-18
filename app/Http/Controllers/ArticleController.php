@@ -13,6 +13,8 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Article::class);
+
         $query = Article::latest()->with('author', function ($query) {
             $query->select('id', 'name');
         });
@@ -32,11 +34,14 @@ class ArticleController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Article::class);
         return view('articles.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Article::class);
+
         $data = $request->validate([
             'title' => 'required|max:255|unique:articles',
             'body' => 'required',
@@ -53,11 +58,15 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
+        $this->authorize('update', $article);
+
         return view('articles.edit')->with('article', $article);
     }
 
     public function update(Request $request, Article $article)
     {
+        $this->authorize('update', $article);
+
         $data = $request->validate([
             'title' => 'required|max:255|unique:articles,title,' . $article->id,
             'body' => 'required',
@@ -80,24 +89,32 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        $this->authorize('delete', $article);
+
         $article->delete();
         return redirect(route('articles.index'))->with('success', 'Article has been deleted.');
     }
 
     public function show(Article $article)
     {
+        $this->authorize('view', $article);
+
         $article->load('comments.author'); // load relations to avoid n+1 problem
         return view('articles.show')->with('article', $article);
     }
 
     public function publish(Article $article)
     {
+        $this->authorize('publish', $article);
+
         $article->update(['status' => ArticleStatus::Published->value]);
         return redirect(route('articles.index'))->with('success', 'Article has been published.');
     }
 
     public function unpublish(Article $article)
     {
+        $this->authorize('unpublish', $article);
+
         $article->update(['status' => ArticleStatus::Unpublished->value]);
         return redirect(route('articles.index'))->with('success', 'Article has been unpublished.');
     }

@@ -2,7 +2,8 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Articles') }}
-            <a href="{{route('articles.create')}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 float-right">Create Article</a>
+
+            <x-action-link :href="route('articles.create')" class="text-white bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 float-right  hover:text-gray-700">Create Article</x-action-link>
         </h2>
 
     </x-slot>
@@ -45,15 +46,12 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->author->name }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->status }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->created_at }}</td>
-                    <td class="px-6 py-4 flex whitespace-nowrap space-x-1 text-sm font-medium">
-                        <x-action-link href="{{route('articles.show', $article->id)}}">View</x-action-link>&nbsp;|
-                        <x-action-link href="{{route('articles.edit', $article->id)}}">Edit</x-action-link>&nbsp;|
-                        @if($article->status !== App\Enum\ArticleStatus::Published)
-                        <x-action-link method="PATCH" href="{{route('articles.publish', $article->id)}}" confirm="Are you sure to publish {{$article->title}}?">Publish</x-action-link>&nbsp;|
-                        @else
-                        <x-action-link method="PATCH" href="{{route('articles.unpublish', $article->id)}}" confirm="Are you sure to unpublish {{$article->title}}?">Unpublish</x-action-link>&nbsp;|
-                        @endif
-                        <x-action-link method="DELETE" href="{{route('articles.destroy', $article->id)}}" confirm="Are you sure to delete {{$article->title}}?">Delete</x-action-link>
+                    <td class="px-6 py-4 flex whitespace-nowrap divide-x-2 divide-gray-100 text-sm font-medium">
+                        <x-action-link :show="Auth::user()->can('view', $article)" href="{{route('articles.show', $article->id)}}">View</x-action-link>
+                        <x-action-link :show="Auth::user()->can('update', $article)" href="{{route('articles.edit', $article->id)}}">Edit</x-action-link>
+                        <x-action-link :show="$article->status !== App\Enum\ArticleStatus::Published && Auth::user()->can('publish', $article)" method="PATCH" href="{{route('articles.publish', $article->id)}}" confirm="Are you sure to publish {{$article->title}}?">Publish</x-action-link>
+                        <x-action-link :show="$article->status === App\Enum\ArticleStatus::Published && Auth::user()->can('unpublish', $article)" method="PATCH" href="{{route('articles.unpublish', $article->id)}}" confirm="Are you sure to unpublish {{$article->title}}?">Unpublish</x-action-link>
+                        <x-action-link :show="Auth::user()->can('delete', $article)" method="DELETE" href="{{route('articles.destroy', $article->id)}}" confirm="Are you sure to delete {{$article->title}}?">Delete</x-action-link>
                     </td>
                 </tr>
                 @endforeach

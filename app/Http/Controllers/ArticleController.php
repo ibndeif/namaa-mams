@@ -36,7 +36,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required|max:255|unique:articles',
             'body' => 'required',
             'image' => 'required|image'
         ]);
@@ -46,6 +46,6 @@ class ArticleController extends Controller
 
         $request->user()->articles()->create($data);
 
-        return redirect(route('articles.index'));
+        return redirect(route('articles.index'))->with('success', 'Article has been created.');
     }
 }

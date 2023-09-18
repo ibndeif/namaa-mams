@@ -24,6 +24,26 @@
             </div>
             <img class="w-full object-cover lg:rounded mt-12" src="{{$article->image}}" alt="">
             <div class="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full ">{{$article->body}}</div>
+
+            <!-- comments -->
+            <section class="mt-10 space-y-6">
+                <form action="POST" action="#" class="border border-gray-200 p-6 rounded-xl">
+                    @csrf()
+                    <header>
+                        <h2 class="font-bold">Leave a comment?</h2>
+                    </header>
+                    <div class="mt-5">
+                        <x-text-area class="w-full" rows="5" placeholder="Place your comment here" />
+                    </div>
+                    <div class="flex justify-end">
+                        <x-primary-button>Post Comment</x-primary-button>
+                    </div>
+                </form>
+
+                <x-article-comment></x-article-comment>
+                <x-article-comment></x-article-comment>
+                <x-article-comment></x-article-comment>
+            </section>
         </article>
     </x-section>
 </x-app-layout>

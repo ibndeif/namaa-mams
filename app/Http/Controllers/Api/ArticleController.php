@@ -14,7 +14,7 @@ class ArticleController extends Controller
             $query->select('id', 'name');
         })->select('id', 'title', 'slug', 'image', 'created_at', 'author_id');
 
-        if (isset($request->term)) {
+        if ($request->filled('term')) {
             $query->matchByTerm($request->term);
         }
 

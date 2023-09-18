@@ -19,11 +19,11 @@ class ArticleController extends Controller
             $query->select('id', 'name');
         });
 
-        if (isset($request->term)) {
+        if ($request->filled('term')) {
             $query->matchByTerm($request->term);
         }
 
-        if (isset($request->status)) {
+        if ($request->filled('status')) {
             $query->matchByStatus($request->status);
         }
 

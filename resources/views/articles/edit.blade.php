@@ -22,8 +22,8 @@
 
             <!-- Body -->
             <div class="mt-4">
-                <x-input-label for="body" :value="__('Body')" />
-                <x-text-area id="body" class="block mt-1 w-full" name="body" :value="old('body', $article->body)" />
+                <x-input-label for="editor" :value="__('Body')" />
+                <x-text-area id="editor" class="block mt-1 w-full" name="body" :value="old('body', $article->body)" />
                 <x-input-error :messages="$errors->first('body')" class="mt-2" />
             </div>
 

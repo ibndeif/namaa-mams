@@ -23,7 +23,7 @@
                 <p class="">By {{$article->author->name}}, {{$article->created_at->diffForHumans()}}</p>
             </div>
             <img class="w-full object-cover lg:rounded mt-12" src="{{$article->image}}" alt="">
-            <div class="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full ">{{$article->body}}</div>
+            <div class="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full ">{!! $article->body !!}</div>
 
             <!-- comments -->
             <section class="mt-10 space-y-6" id="comments">

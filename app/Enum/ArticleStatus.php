@@ -8,7 +8,7 @@ enum ArticleStatus: string
 
     use EnumSerializer;
 
-    case Draft = 'draft';
+    case Pending = 'pending';
     case Published = 'published';
     case Unpublished = 'unpublished';
 }

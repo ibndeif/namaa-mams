@@ -6,12 +6,12 @@ use App\Enum\ArticleStatus;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class ArticlesTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     private User $user;
     private Collection $articles;
@@ -25,7 +25,7 @@ class ArticlesTest extends TestCase
         $this->articles = Article::factory()->count(3)->sequence(
             [
                 'title' => 'Dwelling and speedily ignorant any steepest.',
-                'status' => ArticleStatus::Draft->value,
+                'status' => ArticleStatus::Pending->value,
                 'body' => 'Admiration instrument affronting invitation reasonably up do of prosperous in. Shy saw declared age debating ecstatic man. Call in so want pure rank am dear were. Remarkably to continuing in surrounded diminution on. In unfeeling existence objection immediate repulsive on he in. Imprudence comparison uncommonly me he difficulty diminution resolution. Likewise proposal differed scarcely dwelling as on raillery. September few dependent extremity own continued and ten prevailed attending. Early to weeks we could.'
             ],
             [
@@ -87,7 +87,7 @@ class ArticlesTest extends TestCase
 
     public function test_articles_index_show_correct_data_when_filter_by_status()
     {
-        $status = ArticleStatus::Draft->value;
+        $status = ArticleStatus::Pending->value;
         $response = $this->actingAs($this->user)->get('/articles?status=' . $status);
 
         $response->assertOk();
@@ -101,7 +101,7 @@ class ArticlesTest extends TestCase
     public function test_articles_index_show_correct_data_when_filter_by_status_and_term()
     {
         $term = 'speedily';
-        $status = ArticleStatus::Draft->value;
+        $status = ArticleStatus::Pending->value;
         $response = $this->actingAs($this->user)->get("/articles?status=$status&term=$term");
 
         $response->assertOk();

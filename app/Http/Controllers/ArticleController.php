@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enum\ArticleStatus;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -13,6 +14,7 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
+        Log::debug('this is a test: ' . $request->term);
         $this->authorize('viewAny', Article::class);
 
         $query = Article::latest()->with('author', function ($query) {

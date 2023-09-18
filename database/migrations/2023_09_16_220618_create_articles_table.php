@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('body');
             $table->string('image');
             $table->foreignId('author_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('status', 20)->default(ArticleStatus::Draft->value)->index();
+            $table->string('status', 20)->default(ArticleStatus::Pending->value)->index();
             $table->timestamps();
             $table->fullText(['title', 'body']);
         });

@@ -41,16 +41,17 @@
                 @foreach($articles as $article)
                 <tr class="hover:bg-gray-100 dark:hover:bg-gray-200">
                     <td class="px-6 py-4 whitespace-nowrap text-sm"><img src="{{ $article->image }}" class="object-fill" alt=""></td>
-                    <td class=" px-6 py-4 whitespace-nowrap text-sm">{{ Str::limit($article->title, 50) }}</td>
+                    <td class=" px-6 py-4 whitespace-nowrap text-sm">{{ Str::limit($article->title, 40) }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->author->name }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->status }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->created_at }}</td>
                     <td class="px-6 py-4 flex whitespace-nowrap space-x-1 text-sm font-medium">
-                        <x-action-link href="{{route('articles.edit', $article->id)}}">Edit</x-action-link>
+                        <x-action-link href="{{route('articles.show', $article->id)}}">View</x-action-link>&nbsp;|
+                        <x-action-link href="{{route('articles.edit', $article->id)}}">Edit</x-action-link>&nbsp;|
                         @if($article->status !== App\Enum\ArticleStatus::Published)
-                        <x-action-link method="PATCH" href="{{route('articles.publish', $article->id)}}" confirm="Are you sure to publish {{$article->title}}?">Publish</x-action-link>
+                        <x-action-link method="PATCH" href="{{route('articles.publish', $article->id)}}" confirm="Are you sure to publish {{$article->title}}?">Publish</x-action-link>&nbsp;|
                         @else
-                        <x-action-link method="PATCH" href="{{route('articles.unpublish', $article->id)}}" confirm="Are you sure to unpublish {{$article->title}}?">Unpublish</x-action-link>
+                        <x-action-link method="PATCH" href="{{route('articles.unpublish', $article->id)}}" confirm="Are you sure to unpublish {{$article->title}}?">Unpublish</x-action-link>&nbsp;|
                         @endif
                         <x-action-link method="DELETE" href="{{route('articles.destroy', $article->id)}}" confirm="Are you sure to delete {{$article->title}}?">Delete</x-action-link>
                     </td>

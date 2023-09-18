@@ -84,6 +84,11 @@ class ArticleController extends Controller
         return redirect(route('articles.index'))->with('success', 'Article has been deleted.');
     }
 
+    public function show(Article $article)
+    {
+        return view('articles.show')->with('article', $article);
+    }
+
     public function publish(Article $article)
     {
         $article->update(['status' => ArticleStatus::Published->value]);

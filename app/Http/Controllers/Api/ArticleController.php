@@ -20,4 +20,14 @@ class ArticleController extends Controller
 
         return $query->paginate(15);
     }
+
+    public function show(Article $article)
+    {
+        $article->load([
+            'author' => function ($query) {
+                $query->select('id', 'name');
+            }
+        ]);
+        return $article;
+    }
 }

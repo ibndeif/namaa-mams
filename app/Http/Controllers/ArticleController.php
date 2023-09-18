@@ -86,6 +86,7 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
+        $article->load('comments.author'); // load relations to avoid n+1 problem
         return view('articles.show')->with('article', $article);
     }
 

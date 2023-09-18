@@ -39,10 +39,9 @@
                         <x-primary-button>Post Comment</x-primary-button>
                     </div>
                 </form>
-
-                <x-article-comment></x-article-comment>
-                <x-article-comment></x-article-comment>
-                <x-article-comment></x-article-comment>
+                @foreach($article->comments as $comment)
+                <x-article-comment :comment="$comment"></x-article-comment>
+                @endforeach
             </section>
         </article>
     </x-section>

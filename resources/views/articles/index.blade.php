@@ -47,7 +47,12 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $article->created_at }}</td>
                     <td class="px-6 py-4 flex whitespace-nowrap space-x-1 text-sm font-medium">
                         <x-action-link href="{{route('articles.edit', $article->id)}}">Edit</x-action-link>
-                        <x-action-link type="form" href="{{route('articles.destroy', $article->id)}}" confirm="Are you sure to delete {{$article->title}}">Delete</x-action-link>
+                        @if($article->status !== App\Enum\ArticleStatus::Published)
+                        <x-action-link method="PATCH" href="{{route('articles.publish', $article->id)}}" confirm="Are you sure to publish {{$article->title}}?">Publish</x-action-link>
+                        @else
+                        <x-action-link method="PATCH" href="{{route('articles.unpublish', $article->id)}}" confirm="Are you sure to unpublish {{$article->title}}?">Unpublish</x-action-link>
+                        @endif
+                        <x-action-link method="DELETE" href="{{route('articles.destroy', $article->id)}}" confirm="Are you sure to delete {{$article->title}}?">Delete</x-action-link>
                     </td>
                 </tr>
                 @endforeach

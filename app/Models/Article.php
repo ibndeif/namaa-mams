@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\ArticleStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,7 +20,11 @@ class Article extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'body', 'image', 'slug'];
+    protected $fillable = ['title', 'body', 'image', 'slug', 'status'];
+
+    protected $casts = [
+        'status' => ArticleStatus::class,
+    ];
 
     protected function image(): Attribute
     {

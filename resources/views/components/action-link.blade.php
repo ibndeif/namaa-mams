@@ -1,9 +1,9 @@
-@props(['href' => '#', 'type'=>'', 'confirm'=>'Are you sure?'])
+@props(['href' => '#', 'method'=>'', 'confirm'=>'Are you sure?'])
 
-@if($type === 'form')
+@if(!empty($method))
 <form method="POST" action="{{$href}}">
     @csrf()
-    @method('DELETE')
+    @method($method)
     <button type="submit" class="text-blue-500 hover:text-blue-700" onclick="return confirm('{{$confirm}}')">{{ $slot }}</button>
 </form>
 @else

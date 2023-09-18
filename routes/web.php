@@ -30,6 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     Route::resource('articles', ArticleController::class);
+    Route::patch('articles/{article}/publish', [ArticleController::class, 'publish'])->name('articles.publish');
+    Route::patch('articles/{article}/unpublish', [ArticleController::class, 'unpublish'])->name('articles.unpublish');
 });
 
 require __DIR__ . '/auth.php';

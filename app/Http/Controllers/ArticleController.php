@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\ArticleStatus;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -81,5 +82,17 @@ class ArticleController extends Controller
     {
         $article->delete();
         return redirect(route('articles.index'))->with('success', 'Article has been deleted.');
+    }
+
+    public function publish(Article $article)
+    {
+        $article->update(['status' => ArticleStatus::Published->value]);
+        return redirect(route('articles.index'))->with('success', 'Article has been published.');
+    }
+
+    public function unpublish(Article $article)
+    {
+        $article->update(['status' => ArticleStatus::Unpublished->value]);
+        return redirect(route('articles.index'))->with('success', 'Article has been unpublished.');
     }
 }

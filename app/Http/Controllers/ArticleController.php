@@ -14,7 +14,6 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        Log::debug('this is a test: ' . $request->term);
         $this->authorize('viewAny', Article::class);
 
         $query = Article::latest()->with('author', function ($query) {
@@ -27,6 +26,10 @@ class ArticleController extends Controller
 
         if ($request->filled('status')) {
             $query->matchByStatus($request->status);
+        }
+
+        if ($request->filled('my-articles-only')) {
+            $query->where('author_id', $request->user()->id);
         }
 
         $articles = $query->paginate(15);

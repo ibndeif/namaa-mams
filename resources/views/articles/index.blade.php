@@ -15,9 +15,12 @@
                 <x-text-input class=" mt-1 mr-6" type="text" name="term" :value="request('term')" placeholder="Search Term" />
                 <x-select-input class=" mt-1 mr-6" name="status" :value="request('status')" :options="[''=>'All', ...\App\Enum\ArticleStatus::toArrayForSelectInput()]" placeholder="Search Term" />
 
+                <!-- show my articles only -->
+                <input type="checkbox" id="my-articles-only" name="my-articles-only" value="true" {{request('my-articles-only') == 'true'?'checked':''}} class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-5">
+                <label for="my-articles-only" class="mt-4 ml-2">My articles only</label>
 
                 <!-- Search Button -->
-                <x-secondary-button type="submit" class=" mt-1">{{ __('Search') }}</x-secondary-button>
+                <x-secondary-button type="submit" class=" mt-1 ml-2">{{ __('Search') }}</x-secondary-button>
 
             </div>
         </form>

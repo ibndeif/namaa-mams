@@ -12,11 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-/**
- * Todo
- * - apply fulltext index for better search performance
- */
-
 class Article extends Model
 {
     use HasFactory;
